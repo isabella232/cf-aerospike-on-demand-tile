@@ -1,0 +1,6 @@
+[submodule "cf-aerospike-service-release"]
+	path = cf-aerospike-service-release
+	url = https://github.com/aerospike/cf-aerospike-service-release
+[submodule "cf-aerospike-service-adapter-release"]
+	path = cf-aerospike-service-adapter-release
+	url = https://github.com/aerospike/cf-aerospike-service-adapter-release
