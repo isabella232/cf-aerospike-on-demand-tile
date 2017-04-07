@@ -2,7 +2,7 @@
 name: aerospike-service-on-demand
 product_version: '<%= PRODUCT_VERSION %>'
 minimum_version_for_upgrade: 0.0.0.0
-label: Aerospike On-Demand Service
+label: Aerospike EE OnDemand Service
 rank: 50
 metadata_version: '1.8'
 serial: true
@@ -22,8 +22,7 @@ releases:
 
 stemcell_criteria:
   os: ubuntu-trusty
-  version: '3232.17'
-  enable_patch_security_updates: true
+  version: '3263.15'
 
 post_deploy_errands:
 - name: register_on_demand_service_broker
@@ -287,10 +286,17 @@ property_blueprints:
   configurable: false
   default: 1
 
+- name: license_user
+  type: string
+  configurable: true
+- name: license_password
+  type: secret
+  configurable: true
+
 form_types:
 - name: aerospike_small_ops_form
-  label: Aerospike On-Demand Plan Small 
-  description: Configure Aerospike On-Demand Plan Small Configuration
+  label: Aerospike OnDemand Plan Small 
+  description: Configure Aerospike OnDemand Plan Small Configuration
   markdown: |
     ## To configure the Small Plan:
     1. Configure the VM type, disk type and number of instances for the Aerospike cluster
@@ -318,30 +324,30 @@ form_types:
 
   - reference: .properties.small_aerospike-server_ns_name
     label: Name of the namespace
-    description: 'Enter the name of the disk based persistent namespace to create for Plan Small'
+    description: 'Enter the name of the namespace to create for Plan Small'
   - reference: .properties.small_aerospike-server_ns_storage_type
     label: Storage device for namespace
     description: 'Select the storage type for the namespace for Plan Small'
   - reference: .properties.small_aerospike-server_ns_default_ttl
     label: Default ttl for namespace
-    description: 'Enter the default ttl to use for the disk based persistent namespace for Plan Small' 
+    description: 'Enter the default ttl to use for the namespace for Plan Small' 
   - reference: .properties.small_aerospike-server_ns_memory_size
     label: Size of namespace'
-    description: 'Enter the size for the persistent namespace to create for Plan Small'
+    description: 'Enter the size for the namespace to create for Plan Small'
   - reference: .properties.small_aerospike-server_ns_repl_factor
     label: Replication factor for namespace
-    description: 'Select the replication factor for the persistent namespace for Plan Small' 
+    description: 'Select the replication factor for the namespace for Plan Small' 
   - reference: .properties.small_aerospike-server_ns_filesize
     label: File size for namespace
-    description: 'Enter the size of the file used to store the persistent namespace for Plan Small (only for persistent namespace)' 
+    description: 'Enter the size of the file used to store the namespace for Plan Small (only for persistent namespace)' 
   - reference: .properties.small_aerospike-server_ns_copy_in_memory
     label: Keep a copy of namespace always in memory
     description: 'Set to true to always keep a copy of the data for this namespace in memory for Plan Small (only affects persistent namespace)' 
 
 
 - name: aerospike_medium_ops_form
-  label: Aerospike On-Demand Plan Medium 
-  description: Configure Aerospike On-Demand Plan Medium Configuration
+  label: Aerospike OnDemand Plan Medium 
+  description: Configure Aerospike OnDemand Plan Medium Configuration
   markdown: |
     ## To configure the Medium Plan:
     1. Configure the VM type, disk type and number of instances for the Aerospike cluster
@@ -370,29 +376,29 @@ form_types:
 
   - reference: .properties.medium_aerospike-server_ns_name
     label: Name of namespace
-    description: 'Enter the name of the disk based persistent namespace to create for Plan Medium'
+    description: 'Enter the name of the namespace to create for Plan Medium'
   - reference: .properties.medium_aerospike-server_ns_storage_type
     label: Storage device for namespace
     description: 'Select the storage type for the namespace for Plan Medium'
   - reference: .properties.medium_aerospike-server_ns_default_ttl
     label: Default ttl for namespace
-    description: 'Enter the default ttl to use for the disk based persistent namespace for Plan Medium' 
+    description: 'Enter the default ttl to use for the namespace for Plan Medium' 
   - reference: .properties.medium_aerospike-server_ns_memory_size
     label: Size of namespace'
-    description: 'Enter the size for the persistent namespace to create for Plan Medium'
+    description: 'Enter the size for the namespace to create for Plan Medium'
   - reference: .properties.medium_aerospike-server_ns_repl_factor
     label: Replication factor for namespace
-    description: 'Select the replication factor for the persistent namespace for Plan Medium' 
+    description: 'Select the replication factor for the namespace for Plan Medium' 
   - reference: .properties.medium_aerospike-server_ns_filesize
     label: File size for namespace
-    description: 'Enter the size of the file used to store the persistent namespace for Plan Medium (only for persistent namespace)' 
+    description: 'Enter the size of the file used to store the namespace for Plan Medium (only for persistent namespace)' 
   - reference: .properties.medium_aerospike-server_ns_copy_in_memory
     label: Keep a copy of namespace always in memory
     description: 'Set to true to always keep a copy of the data for this namespace in memory for Plan Medium (only affects persistent namespace)' 
 
 - name: aerospike_large_ops_form
-  label: Aerospike On-Demand Plan Large 
-  description: Configure Aerospike On-Demand Plan Large Configuration
+  label: Aerospike OnDemand Plan Large 
+  description: Configure Aerospike OnDemand Plan Large Configuration
   markdown: |
     ## To configure the Large Plan:
     1. Configure the VM type, disk type and number of instances for the Aerospike cluster
@@ -420,25 +426,39 @@ form_types:
 
   - reference: .properties.large_aerospike-server_ns_name
     label: Name of namespace
-    description: 'Enter the name of the disk based persistent namespace to create for the Plan Large'
+    description: 'Enter the name of the namespace to create for the Plan Large'
   - reference: .properties.large_aerospike-server_ns_storage_type
     label: Storage device for namespace
     description: 'Select the storage type for the namespace for Plan Large'
   - reference: .properties.large_aerospike-server_ns_default_ttl
     label: Default ttl for namespace
-    description: 'Enter the default ttl to use for the disk based persistent namespace for Plan Large' 
+    description: 'Enter the default ttl to use for the namespace for Plan Large' 
   - reference: .properties.large_aerospike-server_ns_memory_size
     label: Size of namespace'
-    description: 'Enter the size for the persistent namespace to create for the Plan Large'
+    description: 'Enter the size for the namespace to create for the Plan Large'
   - reference: .properties.large_aerospike-server_ns_repl_factor
     label: Replication factor for namespace
-    description: 'Select the replication factor for the persistent namespace for the Plan Large' 
+    description: 'Select the replication factor for the namespace for the Plan Large' 
   - reference: .properties.large_aerospike-server_ns_filesize
     label: File size for namespace
-    description: 'Enter the size of the file used to store the persistent namespace for the Plan Large (only for persistent namespace)' 
+    description: 'Enter the size of the file used to store the namespace for the Plan Large (only for persistent namespace)' 
   - reference: .properties.large_aerospike-server_ns_copy_in_memory
     label: Keep a copy of namespace always in memory
     description: 'Set to true to always keep a copy of the data for this namespace in memory for the Plan Large (only affects persistent namespace)' 
+
+- name: aerospike_license_form
+  label: Aerospike Enterprise Edition License
+  description: Enter license information for Aerospike Enterpise Edition software
+  markdown: |
+    The User Name and Password should be the same that is used to dowload the enterprise edition software from the Aerospike website.
+    Contact [Aerospike Sales](http://www.aerospike.com/contact-us/) if you do not have a valid User Name and Password.
+  property_inputs:
+  - reference: .properties.license_user
+    label: User Name
+    description: 'Enter the username used to download the Enterprise Edition server from the Aerospike website'
+  - reference: .properties.license_password
+    label: Password
+    description: 'Enter the password used to download the Enterprise Edition server from the Aerospike website'
 
 job_types:
 - name: broker
@@ -476,7 +496,7 @@ job_types:
           jobs: ['aerospike-server', 'aerospike-amc']
         stemcell:
           os: ubuntu-trusty
-          version: 3232.17
+          version: 3263.15
 
       service_catalog:
         id: aerospike-service-on-demand
@@ -486,8 +506,8 @@ job_types:
         plan_updatable: true
         tags: [aerospike]
         metadata:
-          display_name: Aerospike NoSQL Database
-          long_description: Aerospike NoSQL On-Demand Service for Pivotal Cloud Foundry. Creating a service instance
+          display_name: Aerospike EE NoSQL Database
+          long_description: Aerospike EE NoSQL OnDemand Service for Pivotal Cloud Foundry. Creating a service instance
             provisions a new cluster.
           provider_display_name: Aerospike
           documentation_url: http://www.aerospike.com/docs
@@ -527,6 +547,8 @@ job_types:
               namespace_default_ttl: (( .properties.small_aerospike-server_ns_default_ttl.value ))
               namespace_filesize: (( .properties.small_aerospike-server_ns_filesize.value ))
               namespace_data_in_memory: (( .properties.small_aerospike-server_ns_copy_in_memory.value ))
+              license_user: (( .properties.license_user.value ))
+              license_password: (( .properties.license_password.value ))
             instance_groups:
             - name: Aerospike-Server
               vm_type: (( .properties.small_aerospike-server_vm_type.value ))
@@ -573,6 +595,8 @@ job_types:
               namespace_default_ttl: (( .properties.medium_aerospike-server_ns_default_ttl.value ))
               namespace_filesize: (( .properties.medium_aerospike-server_ns_filesize.value ))
               namespace_data_in_memory: (( .properties.medium_aerospike-server_ns_copy_in_memory.value ))            
+              license_user: (( .properties.license_user.value ))
+              license_password: (( .properties.license_password.value ))
             instance_groups:
             - name: Aerospike-Server
               vm_type: (( .properties.medium_aerospike-server_vm_type.value ))
@@ -619,6 +643,8 @@ job_types:
               namespace_default_ttl: (( .properties.large_aerospike-server_ns_default_ttl.value ))
               namespace_filesize: (( .properties.large_aerospike-server_ns_filesize.value ))
               namespace_data_in_memory: (( .properties.large_aerospike-server_ns_copy_in_memory.value ))   
+              license_user: (( .properties.license_user.value ))
+              license_password: (( .properties.license_password.value ))
             instance_groups:
             - name: Aerospike-Server
               vm_type: (( .properties.large_aerospike-server_vm_type.value ))
@@ -773,7 +799,7 @@ job_types:
   resource_label: Delete all instances deployed by the On Demand Service Broker
   single_az_only: true
   templates:
-  - name: delete-sub-deployments
+  - name: delete-all-service-instances
     release: on-demand-service-broker
     manifest: |
       disable_ssl_cert_verification: true
