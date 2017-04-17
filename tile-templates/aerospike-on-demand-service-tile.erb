@@ -492,7 +492,7 @@ job_types:
       service_deployment:
         releases:
         - name: aerospike-service-release
-          version: latest
+          version: <%= SERVICE_RELEASE_VERSION %>
           jobs: ['aerospike-server', 'aerospike-amc']
         stemcell:
           os: ubuntu-trusty
