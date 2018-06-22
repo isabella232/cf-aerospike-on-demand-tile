@@ -1,0 +1,5 @@
+---
+name: medium_aerospike-server_instance_count
+type: integer
+configurable: true
+default: 5

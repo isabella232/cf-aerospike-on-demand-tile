@@ -1,0 +1,14 @@
+---
+name: aerospike_license_form
+label: Aerospike Enterprise Edition License
+description: Enter license information for Aerospike Enterpise Edition software
+markdown: |
+  The User Name and Password should be the same that is used to dowload the enterprise edition software from the Aerospike website.
+  Contact [Aerospike Sales](http://www.aerospike.com/contact-us/) if you do not have a valid User Name and Password.
+property_inputs:
+- reference: .properties.license_user
+  label: User Name
+  description: 'Enter the username used to download the Enterprise Edition server from the Aerospike website'
+- reference: .properties.license_password
+  label: Password
+  description: 'Enter the password used to download the Enterprise Edition server from the Aerospike website'

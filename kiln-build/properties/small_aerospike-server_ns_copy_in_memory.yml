@@ -1,0 +1,4 @@
+---
+name: small_aerospike-server_ns_copy_in_memory
+type: boolean
+configurable: true

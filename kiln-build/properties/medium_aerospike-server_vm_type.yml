@@ -1,0 +1,5 @@
+---
+name: medium_aerospike-server_vm_type
+type: vm_type_dropdown
+optional: true
+configurable: true

@@ -1,0 +1,50 @@
+---
+name: aerospike_small_ops_form
+label: Aerospike OnDemand Plan Small 
+description: Configure Aerospike OnDemand Plan Small Configuration
+markdown: |
+  ## To configure the Small Plan:
+  1. Configure the VM type, disk type and number of instances for the Aerospike cluster
+  1. Configure the VM type and disk type for the AMC console
+  1. Configure the namespace
+property_inputs:
+- reference: .properties.small_aerospike-server_vm_type
+  label: VM type for the Aerospike Cluster
+  description: 'Select the VM type for Aerospike Cluster for Plan Small'
+- reference: .properties.small_aerospike-server_disk_type
+  label: Disk type for Aerospike Cluster VMs
+  description: 'Select the disk type for Aerospike Cluster VMs for Plan Small'
+- reference: .properties.small_aerospike-server_instance_count
+  label: Number of instances for the Aerospike Cluster
+  description: 'Enter the number of VM instances to use (cluster size) for the Aerospike Cluster for Plan Small'
+- reference: .properties.small_aerospike-amc_vm_type
+  label: VM type for the Aerospike Management Console (AMC)
+  description: 'Select the VM type for Aerospike Management Console for Plan Small'
+- reference: .properties.small_aerospike-amc_disk_type
+  label: Disk type for Aerospike Management Console
+  description: 'Select the disk type for the Aerospike Management Console VM for Plan Small'
+- reference: .properties.small_az_multi_select
+  label: Availability zone(s) for Plan 'Small' 
+  description: 'Select one or more availability zones for Plan Small'
+
+- reference: .properties.small_aerospike-server_ns_name
+  label: Name of the namespace
+  description: 'Enter the name of the namespace to create for Plan Small'
+- reference: .properties.small_aerospike-server_ns_storage_type
+  label: Storage device for namespace
+  description: 'Select the storage type for the namespace for Plan Small'
+- reference: .properties.small_aerospike-server_ns_default_ttl
+  label: Default ttl for namespace
+  description: 'Enter the default ttl to use for the namespace for Plan Small' 
+- reference: .properties.small_aerospike-server_ns_memory_size
+  label: Size of namespace'
+  description: 'Enter the size for the namespace to create for Plan Small'
+- reference: .properties.small_aerospike-server_ns_repl_factor
+  label: Replication factor for namespace
+  description: 'Select the replication factor for the namespace for Plan Small' 
+- reference: .properties.small_aerospike-server_ns_filesize
+  label: File size for namespace
+  description: 'Enter the size of the file used to store the namespace for Plan Small (only for persistent namespace)' 
+- reference: .properties.small_aerospike-server_ns_copy_in_memory
+  label: Keep a copy of namespace always in memory
+  description: 'Set to true to always keep a copy of the data for this namespace in memory for Plan Small (only affects persistent namespace)' 

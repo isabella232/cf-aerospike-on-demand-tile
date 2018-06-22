@@ -1,2 +1,5 @@
 on-demand-broker/
 !on-demand-broker/.gitkeep
+kiln-build/releases/*
+!kiln-build/releases/.gitkeep
+kiln-build/*.pivotal

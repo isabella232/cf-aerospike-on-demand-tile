@@ -1,0 +1,5 @@
+---
+name: small_aerospike-amc_disk_type
+type: disk_type_dropdown
+configurable: true
+optional: true

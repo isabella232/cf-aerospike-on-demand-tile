@@ -1,0 +1,5 @@
+---
+name: large_aerospike-amc_vm_type
+type: vm_type_dropdown
+optional: true
+configurable: true
