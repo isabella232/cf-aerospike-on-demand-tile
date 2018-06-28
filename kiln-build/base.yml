@@ -37,11 +37,8 @@ property_blueprints:
 - name: broker_basic_auth
   type: simple_credentials
 
-- name: license_user
-  type: string
-  configurable: true
-- name: license_password
-  type: secret
+- name: feature_key
+  type: text
   configurable: true
 
 # Server infrastructure Properties for small plan

@@ -62,6 +62,7 @@ manifest: |
             - 'Aerospike Small Cluster'
         properties:
           type: small
+          feature_key: (( .properties.feature_key.value ))
           namespace_name: (( .properties.small_aerospike-server_ns_name.value ))
           namespace_storage_type: (( .properties.small_aerospike-server_ns_storage_type.value ))
           namespace_size: (( .properties.small_aerospike-server_ns_memory_size.value ))
@@ -69,8 +70,6 @@ manifest: |
           namespace_default_ttl: (( .properties.small_aerospike-server_ns_default_ttl.value ))
           namespace_filesize: (( .properties.small_aerospike-server_ns_filesize.value ))
           namespace_data_in_memory: (( .properties.small_aerospike-server_ns_copy_in_memory.value ))
-          license_user: (( .properties.license_user.value ))
-          license_password: (( .properties.license_password.value ))
         instance_groups:
         - name: Aerospike-Server
           vm_type: (( .properties.small_aerospike-server_vm_type.value ))
@@ -97,6 +96,7 @@ manifest: |
             - 'Aerospike Medium Cluster'
         properties:
           type: medium
+          feature_key: (( .properties.feature_key.value ))
           namespace_name: (( .properties.medium_aerospike-server_ns_name.value ))
           namespace_storage_type: (( .properties.medium_aerospike-server_ns_storage_type.value ))
           namespace_size: (( .properties.medium_aerospike-server_ns_memory_size.value ))
@@ -104,8 +104,6 @@ manifest: |
           namespace_default_ttl: (( .properties.medium_aerospike-server_ns_default_ttl.value ))
           namespace_filesize: (( .properties.medium_aerospike-server_ns_filesize.value ))
           namespace_data_in_memory: (( .properties.medium_aerospike-server_ns_copy_in_memory.value ))
-          license_user: (( .properties.license_user.value ))
-          license_password: (( .properties.license_password.value ))
         instance_groups:
         - name: Aerospike-Server
           vm_type: (( .properties.medium_aerospike-server_vm_type.value ))
@@ -132,6 +130,7 @@ manifest: |
             - 'Aerospike Large Cluster'
         properties:
           type: large
+          feature_key: (( .properties.feature_key.value ))
           namespace_name: (( .properties.large_aerospike-server_ns_name.value ))
           namespace_storage_type: (( .properties.large_aerospike-server_ns_storage_type.value ))
           namespace_size: (( .properties.large_aerospike-server_ns_memory_size.value ))
@@ -139,8 +138,6 @@ manifest: |
           namespace_default_ttl: (( .properties.large_aerospike-server_ns_default_ttl.value ))
           namespace_filesize: (( .properties.large_aerospike-server_ns_filesize.value ))
           namespace_data_in_memory: (( .properties.large_aerospike-server_ns_copy_in_memory.value ))
-          license_user: (( .properties.license_user.value ))
-          license_password: (( .properties.license_password.value ))
         instance_groups:
         - name: Aerospike-Server
           vm_type: (( .properties.large_aerospike-server_vm_type.value ))
