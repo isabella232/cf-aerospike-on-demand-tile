@@ -18,6 +18,7 @@ releases:
 - $( release "on-demand-service-broker" )
 - $( release "aerospike-service-release" )
 - $( release "aerospike-service-adapter-release" )
+- $( release "routing")
 
 post_deploy_errands:
 - name: register_on_demand_service_broker

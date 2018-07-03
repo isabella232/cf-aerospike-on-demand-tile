@@ -29,6 +29,9 @@ manifest: |
     - name: aerospike-service-release
       version: $( release "aerospike-service-release" | select "version" )
       jobs: ['aerospike-server', 'aerospike-amc']
+    - name: routing
+      version: $( release "routing" | select "version" )
+      jobs: ['route_registrar']
     stemcell:
       os: ubuntu-trusty
       version: 3541.12
@@ -70,6 +73,10 @@ manifest: |
           namespace_default_ttl: (( .properties.small_aerospike-server_ns_default_ttl.value ))
           namespace_filesize: (( .properties.small_aerospike-server_ns_filesize.value ))
           namespace_data_in_memory: (( .properties.small_aerospike-server_ns_copy_in_memory.value ))
+          cf:
+            app_domains:
+            - (( ..cf.cloud_controller.apps_domain.value ))
+          nats_deployment: (( ..cf.deployment_name ))
         instance_groups:
         - name: Aerospike-Server
           vm_type: (( .properties.small_aerospike-server_vm_type.value ))
@@ -104,6 +111,10 @@ manifest: |
           namespace_default_ttl: (( .properties.medium_aerospike-server_ns_default_ttl.value ))
           namespace_filesize: (( .properties.medium_aerospike-server_ns_filesize.value ))
           namespace_data_in_memory: (( .properties.medium_aerospike-server_ns_copy_in_memory.value ))
+          cf:
+            app_domains:
+            - (( ..cf.cloud_controller.apps_domain.value ))
+          nats_deployment: (( ..cf.deployment_name ))
         instance_groups:
         - name: Aerospike-Server
           vm_type: (( .properties.medium_aerospike-server_vm_type.value ))
@@ -138,6 +149,10 @@ manifest: |
           namespace_default_ttl: (( .properties.large_aerospike-server_ns_default_ttl.value ))
           namespace_filesize: (( .properties.large_aerospike-server_ns_filesize.value ))
           namespace_data_in_memory: (( .properties.large_aerospike-server_ns_copy_in_memory.value ))
+          cf:
+            app_domains:
+              - (( ..cf.cloud_controller.apps_domain.value ))
+          nats_deployment: (( ..cf.deployment_name ))
         instance_groups:
         - name: Aerospike-Server
           vm_type: (( .properties.large_aerospike-server_vm_type.value ))

@@ -4,6 +4,7 @@
 
 1. [Kiln](https://github.com/pivotal-cf/kiln) 
 2. First copy the `aerospike-service-adapter-release*.tgz` `aerospike-service-release*.tgz` and `on-demand-service-broker-0.21.2.tgz` into the release directory. The service adapter release may be found at: https://network.pivotal.io/products/on-demand-services-sdk/ . It is necessary to log in to download the file. Alternatively it may be found at the github repository for the project as a release
+3. Download the routing release from the [GitHub Repo](https://github.com/cloudfoundry/routing-release) as a release
 
 
 ### Build Instructions
