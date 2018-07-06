@@ -29,7 +29,7 @@ else
 fi
 
 if ! type kiln >/dev/null 2>&1; then
-    echo "This relies on having kiln installed. Run go get github.com/pivotal-cf/kiln"
+    echo "This relies on having kiln installed. Run go get github.com/pivotal-cf/kiln. Ensure that gopath/bin is in the PATH"
 fi
 
 kiln bake --variables-file variables.yml \
