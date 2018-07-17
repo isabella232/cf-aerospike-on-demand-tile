@@ -48,7 +48,7 @@ manifest: |
       long_description: Aerospike EE NoSQL OnDemand Service for Pivotal Cloud Foundry. Creating a service instance
         provisions a new cluster.
       provider_display_name: Aerospike
-      documentation_url: http://www.aerospike.com/docs
+      documentation_url: https://www.aerospike.com/docs
       supportUrl: https://support.aerospike.com
       imageUrl: $( variable "image_url" )
     plans:
