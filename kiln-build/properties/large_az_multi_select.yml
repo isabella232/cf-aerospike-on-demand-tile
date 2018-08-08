@@ -1,0 +1,5 @@
+---
+name: large_az_multi_select
+type: service_network_az_multi_select
+configurable: true
+optional: false

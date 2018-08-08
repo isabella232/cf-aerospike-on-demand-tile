@@ -1,0 +1,44 @@
+#!/bin/bash
+#set -xv
+
+function realpath() {
+  [[ $1 = /* ]] && echo "$1" || echo "$PWD/${1#./}"
+}
+
+SCRIPT=$(realpath $0)
+SCRIPT_DIR=$(dirname $SCRIPT)
+ROOT_DIR=$SCRIPT_DIR/..
+
+if [ "$#" -gt 1 ]; then
+  echo "Usage: [<version>]"
+  echo " 1st arg (optional): version for the release" 
+  echo ""
+  exit -1
+fi
+
+RELEASE_DIR=$(realpath $ROOT_DIR)
+
+source $SCRIPT_DIR/version
+if [ "$#" -gt 0 ]; then
+  ON_DEMAND_TILE_VERSION="$1"
+  printf "ON_DEMAND_TILE_VERSION=%s\n" $ON_DEMAND_TILE_VERSION > $SCRIPT_DIR/version
+else
+  # Increment current version and save it back out
+  perl -i -pe 's/ON_DEMAND_TILE_VERSION=\d+\.\d+\.\K(\d+)/ $1+1 /e' $SCRIPT_DIR/version
+  source $SCRIPT_DIR/version
+fi
+
+if ! type kiln >/dev/null 2>&1; then
+    echo "This relies on having kiln installed. Run go get github.com/pivotal-cf/kiln. Ensure that gopath/bin is in the PATH"
+fi
+
+kiln bake --variables-file variables.yml \
+--instance-groups-directory instance-groups/ \
+--jobs-directory jobs/ \
+--metadata base.yml \
+--icon aerospike.png \
+--releases-directory releases/ \
+--properties-directory properties/ \
+--version "$ON_DEMAND_TILE_VERSION" \
+--forms-directory forms/ \
+--output-file "aerospike-on-demand-$ON_DEMAND_TILE_VERSION.pivotal"

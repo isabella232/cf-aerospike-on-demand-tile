@@ -1,0 +1,8 @@
+---
+name: medium_aerospike-server_ns_default_ttl
+type: string
+configurable: true
+default: '0S'
+constraints:
+  - must_match_regex: '[0-9]+[SMHD]'
+    error_message: 'Default TTL must match the regex [0-9]+[SMHD]'

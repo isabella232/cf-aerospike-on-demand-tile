@@ -1,0 +1,11 @@
+---
+name: aerospike_license_form
+label: Aerospike Enterprise Features Key
+description: Enter license information for Aerospike Enterpise Edition software
+markdown: |
+  The features key provided to you by Aerospike, with your Enterprise subscription.
+  Contact [Enterprise support](https://support.aerospike.com) if you do not have a Features Key file.
+property_inputs:
+- reference: .properties.feature_key
+  label: Aerospike Server Features Key
+  description: 'Paste in the features key provided to you by Aerospike.'

@@ -1,0 +1,10 @@
+---
+name: small_aerospike-server_ns_storage_type
+type: dropdown_select
+configurable: true
+default: 'memory'
+options:
+  - name: 'memory'
+    label: Memory
+  - name: 'device'
+    label: Device (Persistent)

@@ -1,0 +1,5 @@
+---
+name: small_aerospike-amc_instance_count
+type: integer
+configurable: false
+default: 1

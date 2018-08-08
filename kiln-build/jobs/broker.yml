@@ -1,0 +1,168 @@
+---
+name: broker
+release: on-demand-service-broker
+manifest: |
+  port: 8080
+  username: (( .properties.broker_basic_auth.identity ))
+  password: (( .properties.broker_basic_auth.password ))
+  disable_ssl_cert_verification: true
+  bosh:
+    url: https://(( $director.hostname )):25555
+    root_ca_cert: (( $director.ca_public_key ))
+    authentication:
+      uaa:
+        url: https://(( $director.hostname )):8443
+        client_id: (( $self.uaa_client_name ))
+        client_secret: (( $self.uaa_client_secret ))
+  cf:
+    url: https://api.(( ..cf.cloud_controller.system_domain.value ))
+    authentication:
+      url: https://uaa.(( ..cf.cloud_controller.system_domain.value ))
+      user_credentials:
+        username: (( ..cf.uaa.system_services_credentials.identity ))
+        password: (( ..cf.uaa.system_services_credentials.password ))
+
+  service_adapter:
+    path: /var/vcap/packages/odb-service-adapter/bin/service-adapter
+  service_deployment:
+    releases:
+    - name: aerospike-service-release
+      version: $( release "aerospike-service-release" | select "version" )
+      jobs: ['aerospike-server', 'aerospike-amc']
+    - name: routing
+      version: $( release "routing" | select "version" )
+      jobs: ['route_registrar']
+    stemcell:
+      os: ubuntu-trusty
+      version: 3586.24
+
+  service_catalog:
+    id: aerospike-service-on-demand
+    service_name: aerospike-on-demand
+    service_description: An enterprise-class NoSQL database providing speed at scale
+    bindable: true
+    plan_updatable: true
+    tags: [aerospike]
+    metadata:
+      display_name: Aerospike EE NoSQL Database
+      long_description: Aerospike EE NoSQL OnDemand Service for Pivotal Cloud Foundry. Creating a service instance
+        provisions a new cluster.
+      provider_display_name: Aerospike
+      documentation_url: https://www.aerospike.com/docs
+      supportUrl: https://support.aerospike.com
+      imageUrl: $( variable "image_url" )
+    plans:
+      - name: small
+        plan_id: small-plan-guid
+        description: Small Aerospike cluster with a default of (( .properties.small_aerospike-server_instance_count.value )) nodes
+        metadata:
+          display_name: Small Aerospike cluster with default of (( .properties.small_aerospike-server_instance_count.value )) nodes
+          costs:
+            - amount:
+                usd: 0.0
+              unit: 'MONTHLY'
+          bullets:
+            - 'Aerospike Small Cluster'
+        properties:
+          type: small
+          feature_key: (( .properties.feature_key.value ))
+          namespace_name: (( .properties.small_aerospike-server_ns_name.value ))
+          namespace_storage_type: (( .properties.small_aerospike-server_ns_storage_type.value ))
+          namespace_size: (( .properties.small_aerospike-server_ns_memory_size.value ))
+          namespace_replication_factor: (( .properties.small_aerospike-server_ns_repl_factor.value ))
+          namespace_default_ttl: (( .properties.small_aerospike-server_ns_default_ttl.value ))
+          namespace_filesize: (( .properties.small_aerospike-server_ns_filesize.value ))
+          namespace_data_in_memory: (( .properties.small_aerospike-server_ns_copy_in_memory.value ))
+          cf:
+            app_domains:
+            - (( ..cf.cloud_controller.apps_domain.value ))
+          nats_deployment: (( ..cf.deployment_name ))
+        instance_groups:
+        - name: Aerospike-Server
+          vm_type: (( .properties.small_aerospike-server_vm_type.value ))
+          instances: (( .properties.small_aerospike-server_instance_count.value ))
+          persistent_disk_type: (( .properties.small_aerospike-server_disk_type.value ))
+          azs: (( .properties.small_az_multi_select.value ))
+          networks: [(( $self.service_network ))]
+        - name: Aerospike-AMC
+          vm_type: (( .properties.small_aerospike-amc_vm_type.value ))
+          instances: (( .properties.small_aerospike-amc_instance_count.value ))
+          persistent_disk_type: (( .properties.small_aerospike-amc_disk_type.value ))
+          azs: (( .properties.small_az_multi_select.value ))
+          networks: [(( $self.service_network ))]
+      - name: medium
+        plan_id: medium-plan-guid
+        description: Medium Aerospike cluster with a default of (( .properties.medium_aerospike-server_instance_count.value )) nodes
+        metadata:
+          display_name: Medium Aerospike cluster with default of (( .properties.medium_aerospike-server_instance_count.value )) nodes
+          costs:
+            - amount:
+                usd: 0.0
+              unit: 'MONTHLY'
+          bullets:
+            - 'Aerospike Medium Cluster'
+        properties:
+          type: medium
+          feature_key: (( .properties.feature_key.value ))
+          namespace_name: (( .properties.medium_aerospike-server_ns_name.value ))
+          namespace_storage_type: (( .properties.medium_aerospike-server_ns_storage_type.value ))
+          namespace_size: (( .properties.medium_aerospike-server_ns_memory_size.value ))
+          namespace_replication_factor: (( .properties.medium_aerospike-server_ns_repl_factor.value ))
+          namespace_default_ttl: (( .properties.medium_aerospike-server_ns_default_ttl.value ))
+          namespace_filesize: (( .properties.medium_aerospike-server_ns_filesize.value ))
+          namespace_data_in_memory: (( .properties.medium_aerospike-server_ns_copy_in_memory.value ))
+          cf:
+            app_domains:
+            - (( ..cf.cloud_controller.apps_domain.value ))
+          nats_deployment: (( ..cf.deployment_name ))
+        instance_groups:
+        - name: Aerospike-Server
+          vm_type: (( .properties.medium_aerospike-server_vm_type.value ))
+          instances: (( .properties.medium_aerospike-server_instance_count.value ))
+          persistent_disk_type: (( .properties.medium_aerospike-server_disk_type.value ))
+          azs: (( .properties.medium_az_multi_select.value ))
+          networks: [(( $self.service_network ))]
+        - name: Aerospike-AMC
+          vm_type: (( .properties.medium_aerospike-amc_vm_type.value ))
+          instances: (( .properties.medium_aerospike-amc_instance_count.value ))
+          persistent_disk_type: (( .properties.medium_aerospike-amc_disk_type.value ))
+          azs: (( .properties.medium_az_multi_select.value ))
+          networks: [(( $self.service_network ))]
+      - name: large
+        plan_id: large-plan-guid
+        description: Large Aerospike cluster with a default of (( .properties.large_aerospike-server_instance_count.value )) nodes
+        metadata:
+          display_name: Large Aerospike cluster with default of (( .properties.large_aerospike-server_instance_count.value )) nodes
+          costs:
+            - amount:
+                usd: 0.0
+              unit: 'MONTHLY'
+          bullets:
+            - 'Aerospike Large Cluster'
+        properties:
+          type: large
+          feature_key: (( .properties.feature_key.value ))
+          namespace_name: (( .properties.large_aerospike-server_ns_name.value ))
+          namespace_storage_type: (( .properties.large_aerospike-server_ns_storage_type.value ))
+          namespace_size: (( .properties.large_aerospike-server_ns_memory_size.value ))
+          namespace_replication_factor: (( .properties.large_aerospike-server_ns_repl_factor.value ))
+          namespace_default_ttl: (( .properties.large_aerospike-server_ns_default_ttl.value ))
+          namespace_filesize: (( .properties.large_aerospike-server_ns_filesize.value ))
+          namespace_data_in_memory: (( .properties.large_aerospike-server_ns_copy_in_memory.value ))
+          cf:
+            app_domains:
+              - (( ..cf.cloud_controller.apps_domain.value ))
+          nats_deployment: (( ..cf.deployment_name ))
+        instance_groups:
+        - name: Aerospike-Server
+          vm_type: (( .properties.large_aerospike-server_vm_type.value ))
+          instances: (( .properties.large_aerospike-server_instance_count.value ))
+          persistent_disk_type: (( .properties.large_aerospike-server_disk_type.value ))
+          azs: (( .properties.large_az_multi_select.value ))
+          networks: [(( $self.service_network ))]
+        - name: Aerospike-AMC
+          vm_type: (( .properties.large_aerospike-amc_vm_type.value ))
+          instances: (( .properties.large_aerospike-amc_instance_count.value ))
+          persistent_disk_type: (( .properties.large_aerospike-amc_disk_type.value ))
+          azs: (( .properties.large_az_multi_select.value ))
+          networks: [(( $self.service_network ))]

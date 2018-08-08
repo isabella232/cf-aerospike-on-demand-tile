@@ -1,0 +1,5 @@
+---
+name: large_aerospike-server_disk_type
+type: disk_type_dropdown
+configurable: true
+optional: true

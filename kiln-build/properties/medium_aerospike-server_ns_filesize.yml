@@ -1,0 +1,8 @@
+---
+name: medium_aerospike-server_ns_filesize
+type: string
+configurable: true
+default: '2G'
+constraints:
+  - must_match_regex: '[0-9]+[KMGTP]'
+    error_message: 'Memory size must match the regex [0-9]+[KMGTP]'

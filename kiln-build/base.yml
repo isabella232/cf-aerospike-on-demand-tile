@@ -1,0 +1,116 @@
+---
+name: aerospike-service-on-demand
+product_version: $( version )
+minimum_version_for_upgrade: 0.0.0.0
+label: Aerospike EE OnDemand Service
+rank: 1
+metadata_version: '1.8'
+serial: true
+service_broker: true # Imp to generate uaa client creds
+
+icon_image: $( icon )
+
+provides_product_versions:
+- name: aerospike-service-on-demand
+  version: $( version )
+
+releases:
+- $( release "on-demand-service-broker" )
+- $( release "aerospike-service-release" )
+- $( release "aerospike-service-adapter-release" )
+- $( release "routing")
+
+post_deploy_errands:
+- name: register_on_demand_service_broker
+
+pre_delete_errands:
+- name: delete_subdeployments_on_demand_service_broker
+- name: unregister_on_demand_service_broker
+
+
+stemcell_criteria:
+  os: ubuntu-trusty
+  version: '3586.24'
+
+property_blueprints:
+- name: encryption_key
+  type: secret
+- name: broker_basic_auth
+  type: simple_credentials
+
+- name: feature_key
+  type: text
+  configurable: true
+
+# Server infrastructure Properties for small plan
+- $( property "small_az_multi_select" )
+- $( property "small_aerospike-server_vm_type" )
+- $( property "small_aerospike-server_disk_type" )
+- $( property "small_aerospike-server_instance_count" )
+
+# Server config properties for small plan
+- $( property "small_aerospike-server_ns_name" )
+- $( property "small_aerospike-server_ns_storage_type" )
+- $( property "small_aerospike-server_ns_memory_size" )
+- $( property "small_aerospike-server_ns_filesize" )
+- $( property "small_aerospike-server_ns_repl_factor" )
+- $( property "small_aerospike-server_ns_default_ttl" )
+- $( property "small_aerospike-server_ns_copy_in_memory" )
+
+# AMC properties for small plan
+- $( property "small_aerospike-amc_vm_type" )
+- $( property "small_aerospike-amc_disk_type" )
+- $( property "small_aerospike-amc_instance_count" )
+
+# Properties for medium plan
+- $( property "medium_az_multi_select" )
+- $( property "medium_aerospike-server_vm_type" )
+- $( property "medium_aerospike-server_disk_type" )
+- $( property "medium_aerospike-server_instance_count" )
+
+# Server config properties for medium plan
+- $( property "medium_aerospike-server_ns_name" )
+- $( property "medium_aerospike-server_ns_storage_type" )
+- $( property "medium_aerospike-server_ns_memory_size" )
+- $( property "medium_aerospike-server_ns_filesize" )
+- $( property "medium_aerospike-server_ns_repl_factor" )
+- $( property "medium_aerospike-server_ns_default_ttl" )
+- $( property "medium_aerospike-server_ns_copy_in_memory" )
+
+# AMC infrastructure properties for medium plan
+- $( property "medium_aerospike-amc_vm_type" )
+- $( property "medium_aerospike-amc_disk_type" )
+- $( property "medium_aerospike-amc_instance_count")
+
+
+# Large infrastructure properties
+- $( property "large_az_multi_select" )
+- $( property "large_aerospike-server_vm_type" )
+- $( property "large_aerospike-server_disk_type" )
+- $( property "large_aerospike-server_instance_count" )
+
+# Server configuration  for large plan
+- $( property "large_aerospike-server_ns_name" )
+- $( property "large_aerospike-server_ns_storage_type" )
+- $( property "large_aerospike-server_ns_memory_size" )
+- $( property "large_aerospike-server_ns_filesize" )
+- $( property "large_aerospike-server_ns_repl_factor" )
+- $( property "large_aerospike-server_ns_default_ttl" )
+- $( property "large_aerospike-server_ns_copy_in_memory" )
+
+- $( property "large_aerospike-amc_vm_type" )
+- $( property "large_aerospike-amc_disk_type" )
+- $( property "large_aerospike-amc_instance_count")
+
+# Large AMC Configuration
+form_types:
+- $( form "aerospike_small_ops_form" )
+- $( form "aerospike_medium_ops_form" )
+- $( form "aerospike_large_ops_form" )
+- $( form "aerospike_license_form" )
+
+job_types:
+- $( instance_group "broker" )
+- $( instance_group "register_on_demand_service_broker" )
+- $( instance_group "unregister_on_demand_service_broker" )
+- $( instance_group "delete_subdeployments_on_demand_service_broker")
