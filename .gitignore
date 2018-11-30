@@ -3,3 +3,5 @@ on-demand-broker/
 kiln-build/releases/*
 !kiln-build/releases/.gitkeep
 kiln-build/*.pivotal
+*.tgz
+*.pivotal

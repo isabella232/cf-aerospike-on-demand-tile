@@ -34,7 +34,7 @@ manifest: |
       jobs: ['route_registrar']
     stemcell:
       os: ubuntu-trusty
-      version: 3586.24
+      version: 3586.54
 
   service_catalog:
     id: aerospike-service-on-demand
